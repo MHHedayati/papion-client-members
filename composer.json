@@ -1,0 +1,20 @@
+{
+    "name": "papion/client-members"
+    , "description": "Members API Http Client (SDK)."
+    , "type": "library"
+    , "authors": [
+        {
+            "name": "hessam hedayati"
+            , "email": "hessamhedayati@gmail.com"
+        }
+    ]
+    , "require": {}
+    , "autoload": {
+        "psr-4": {
+            "Papion\\MembersClient\\": "src/"
+        }
+        , "files": [
+            "src/helpers.php"
+        ]
+    }
+}
