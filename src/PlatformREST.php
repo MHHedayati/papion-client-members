@@ -6,11 +6,10 @@
  * Time: 1:36 PM
  */
 
-namespace Papion\MembersClient;
+namespace App\Classes\members_client\src;
 
 
-use Papion\MembersClient\Exceptions\exConnection;
-use Papion\MembersClient\Exceptions\exHTTPResponse;
+use App\Classes\members_client\src\Exceptions\exHTTPResponse;
 
 class PlatformREST
 {
@@ -37,16 +36,30 @@ class PlatformREST
         $this->serverURL = $serverURL;
     }
 
+    /**
+     * @param ApiCommand $command
+     * @return array
+     * @throws \Exception
+     */
     public function send(ApiCommand $command){
+        /**
+         * checking for cURL library
+         * */
         if (! extension_loaded('curl') ){
             throw new \Exception('cURL library is not loaded');
         }
+        /**
+         * cURL options start
+         * */
         $handle = curl_init();
-        curl_setopt($handle, CURLOPT_HTTPHEADER, $command->getHeaders());
+        $headersArray = [];
+        foreach ($command->getHeaders() as $key => $value){
+            array_push($headersArray, $key . ": " .$value);
+        }
+        curl_setopt($handle, CURLOPT_HTTPHEADER, $headersArray);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
-
         switch ($command->getMethod()){
             case "GET":
                 $this->_sendGet($command, $handle);
@@ -64,9 +77,20 @@ class PlatformREST
                 $this->_sendDelete($command, $handle);
                 break;
         }
+        /**
+         * cURL options set
+         * */
+
+        /**
+         * executing cURL
+         * */
         $response = curl_exec($handle);
         $responseCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         $contentType = curl_getinfo($handle, CURLINFO_CONTENT_TYPE);
+
+        /**
+         * checking for connection errors
+         * */
         if ($curl_errno = curl_errno($handle)) {
             // Connection Error
             $curl_error = curl_error($handle);
@@ -90,7 +114,10 @@ class PlatformREST
     }
 
     function _sendGet(ApiCommand $command, &$handle){
-        $urlEncodeData = http_build_query($command->getQueryParams());
+        $urlEncodeData = "";
+        if ($params = $command->getQueryParams()){
+            $urlEncodeData = http_build_query($params);
+        }
         curl_setopt($handle, CURLOPT_URL, $this->serverURL . "/" . $command->getEndpoint() . $urlEncodeData);
     }
 

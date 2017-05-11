@@ -1,6 +1,6 @@
 <?php
 
-namespace Papion\MembersClient;
+namespace App\Classes\members_client\src;
 
 class ApiCommand
 {
@@ -26,6 +26,14 @@ class ApiCommand
     public function setHeaders($headers)
     {
         $this->headers = $headers;
+    }
+
+    /**
+     * @param string $key
+     * @param string $value
+     */
+    public function addHeader($key, $value){
+        $this->headers[$key] = $value;
     }
 
     /**
@@ -122,6 +130,8 @@ class ApiCommand
     public function setToken($token)
     {
         $this->token = $token;
+        $tokenString = $token->getAccessToken();
+        $this->addHeader('Authorization', "Bearer $tokenString");
     }
 
     /**

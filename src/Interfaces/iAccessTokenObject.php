@@ -1,5 +1,5 @@
 <?php
-namespace Papion\MembersClient\Interfaces;
+namespace App\Classes\members_client\src\Interfaces;
 
 interface iAccessTokenObject
 {

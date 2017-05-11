@@ -6,7 +6,7 @@
  * Time: 4:19 PM
  */
 
-namespace Papion\MembersClient\Exceptions;
+namespace App\Classes\members_client\src\Exceptions;
 
 
 class exHTTPResponse extends \RuntimeException
