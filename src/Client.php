@@ -19,7 +19,7 @@ class Client
     function __construct($baseUrl, $tokenProvider)
     {
         $this->baseUrl  = rtrim( (string) $baseUrl, '/' );
-        if($this->isInstanceOf($tokenProvider, iTokenProvider::class)){
+        if(isInstanceOf($tokenProvider, iTokenProvider::class)){
             $this->tokenProvider = $tokenProvider;
         }else{
             throw new \InvalidArgumentException();
