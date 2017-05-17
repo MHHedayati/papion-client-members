@@ -1,5 +1,5 @@
 <?php
-namespace App\Classes\members_client\src\Interfaces;
+namespace Papion\MembersClient\Interfaces;
 
 interface iTokenProvider
 {

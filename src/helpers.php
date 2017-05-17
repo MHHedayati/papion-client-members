@@ -1,5 +1,5 @@
 <?php
-namespace App\Classes\members_client\src
+namespace Papion\MembersClient
 {
     function isInstanceOf($object, $interface){
         $object_methods = get_class_methods($object);

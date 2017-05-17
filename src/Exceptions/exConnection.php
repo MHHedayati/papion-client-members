@@ -1,5 +1,5 @@
 <?php
-namespace App\Classes\members_client\src\Exceptions;
+namespace Papion\MembersClient\Exceptions;
 
 class exConnection extends \RuntimeException
 {

@@ -6,10 +6,11 @@
  * Time: 1:36 PM
  */
 
-namespace App\Classes\members_client\src;
+namespace Papion\MembersClient;
 
 
-use App\Classes\members_client\src\Exceptions\exHTTPResponse;
+use Papion\MembersClient\Exceptions\exConnection;
+use Papion\MembersClient\Exceptions\exHTTPResponse;
 
 class PlatformREST
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\members_client\src;
+namespace Papion\MembersClient;
 
 class ApiCommand
 {
