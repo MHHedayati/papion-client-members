@@ -360,7 +360,7 @@ class Client
      * @return array
      * @throws \Exception
      */
-    public function getUsersBasicProfiles($user_ids){
+    public function fed_getUsersBasicProfiles($user_ids){
         $command = new ApiCommand("users/profile/basic", "POST", 1);
         $command->setData(['users' => $user_ids]);
         try{
@@ -379,7 +379,7 @@ class Client
      * @return array
      * @throws \Exception
      */
-    public function changeUsername($user_id, $username){
+    public function fed_changeUsername($user_id, $username){
         $command = new ApiCommand("user/$user_id/username", "PATCH", 1);
         $command->setData(['username' => $username]);
         try{
@@ -398,7 +398,7 @@ class Client
      * @return array
      * @throws \Exception
      */
-    public function getUserSettings($user_id, $namespace){
+    public function fed_getUserSettings($user_id, $namespace){
         $command = new ApiCommand("user/$user_id/settings/$namespace", 'GET', 1);
         try{
             $response = $this->call($command);
@@ -478,6 +478,48 @@ class Client
         }catch (\Exception $e){
             throw $e;
         }
+    }
+
+    public function fed_followUser(){
+        /*
+         * TODO:
+         * */
+    }
+
+    public function fed_unfollow(){
+        /*
+         * TODO:
+         * */
+    }
+
+    public function fed_getFollowings(){
+        /*
+         * TODO:
+         * */
+    }
+
+    public function fed_getFollowers(){
+        /*
+         * TODO
+         * */
+    }
+
+    public function fed_getProfile(){
+        /*
+         * TODO:
+         * */
+    }
+
+    public function fed_getTopUsers(){
+        /*
+         * TODO
+         * */
+    }
+
+    public function fed_reportUser(){
+        /*
+         * TODO:
+         * */
     }
 
     /**
