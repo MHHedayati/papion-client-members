@@ -470,8 +470,106 @@ class Client
      */
     public function searchInUsers($user_token, $term){
         $command = new ApiCommand("users/search", 'GET', 0);
-        $command->setQueryParams($term);
+        $command->setQueryParams(['term' => $term]);
         $command->setToken($user_token);
+        try{
+            $response = $this->call($command);
+            return $response;
+        }catch (\Exception $e){
+            throw $e;
+        }
+    }
+
+    public function backward_follow($requesting_user_id, $user_id){
+        $command = new ApiCommand("backward/interaction/follow", "POST", 1);
+        $command->setData([
+            'requesting_user_id' => $requesting_user_id,
+            'user_id' => $user_id
+            ]);
+        try{
+            $response = $this->call($command);
+            return $response;
+        }catch (\Exception $e){
+            throw $e;
+        }
+    }
+
+    public function backward_unfollow($requesting_user_id, $user_id){
+        $command = new ApiCommand("backward/interaction/unfollow", "POST", 1);
+        $command->setData([
+            'requesting_user_id' => $requesting_user_id,
+            'user_id' => $user_id
+        ]);
+        try{
+            $response = $this->call($command);
+            return $response;
+        }catch (\Exception $e){
+            throw $e;
+        }
+    }
+
+    public function backward_report($requesting_user_id, $user_id){
+        $command = new ApiCommand("backward/report/users/$user_id", "POST", 1);
+        $command->setData([
+            'requesting_user_id' => $requesting_user_id
+        ]);
+        try{
+            $response = $this->call($command);
+            return $response;
+        }catch (\Exception $e){
+            throw $e;
+        }
+    }
+
+    public function backward_getUserFollowings($requesting_user_id, $user_id, $offset, $limit){
+        $command = new ApiCommand("backward/users/$user_id/followings", 'GET', 1);
+        $command->setQueryParams([
+            'requesting_user_id' => $requesting_user_id,
+            'offset' => $offset,
+            'limit' => $limit
+            ]);
+        try{
+            $response = $this->call($command);
+            return $response;
+        }catch (\Exception $e){
+            throw $e;
+        }
+    }
+
+    public function backward_getUserFollowers($requesting_user_id, $user_id, $offset, $limit){
+        $command = new ApiCommand("backward/users/$user_id/followers", 'GET', 1);
+        $command->setQueryParams([
+            'requesting_user_id' => $requesting_user_id,
+            'offset' => $offset,
+            'limit' => $limit
+        ]);
+        try{
+            $response = $this->call($command);
+            return $response;
+        }catch (\Exception $e){
+            throw $e;
+        }
+    }
+
+    public function backward_getUserProfile($requesting_user_id, $user_id){
+        $command = new ApiCommand("backward/users/$user_id", 'GET', 1);
+        $command->setQueryParams([
+            'requesting_user_id' => $requesting_user_id,
+        ]);
+        try{
+            $response = $this->call($command);
+            return $response;
+        }catch (\Exception $e){
+            throw $e;
+        }
+    }
+
+    public function backward_getTopUsers($offset, $limit){
+        $command = new ApiCommand("backward/users/top", 'GET', 1);
+        $command->setQueryParams([
+            'offset' => $offset,
+            'limit' => $limit
+        ]);
         try{
             $response = $this->call($command);
             return $response;
