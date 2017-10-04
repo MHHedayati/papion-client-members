@@ -432,24 +432,19 @@ class Client
 
     /**
      * registers a new user,
-     * example of $identifiers array:
-     * ['email' => 'hessamhedayati@gmail.com', 'mobile' => ['country' => '+98', 'number' => '9376879924']]
      *
+     * @param $uid
      * @param string $username
      * @param string $display_name
-     * @param string $password
-     * @param array $identifiers
      * @return array
      * @throws \Exception
      */
-    public function register($username, $display_name, $password, $identifiers){
-        $command = new ApiCommand("register", 'POST', 0);
+    public function register($uid, $username, $display_name){
+        $command = new ApiCommand('register', 'POST', 1);
         $data = array([
+            'uid' => $uid,
             'display_name' => $display_name,
-            'password' => $password,
-            'username' => $username,
-            'email' => $identifiers['email'],
-            'mobile' => $identifiers['mobile']
+            'username' => $username
         ]);
         $command->setData($data);
         try{
