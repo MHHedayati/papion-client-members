@@ -573,6 +573,41 @@ class Client
         }
     }
 
+    /**
+     * returns an array of ids, followers of this user
+     *
+     * @param $user_id
+     * @return array
+     * @throws \Exception
+     */
+    public function fed_getFollowers($user_id){
+        $command = new ApiCommand("users/$user_id/followers", 'GET', 1);
+        try{
+            $response = $this->call($command);
+            return $response;
+        }catch (\Exception $e){
+            throw $e;
+        }
+    }
+
+    /**
+     * returns an associative array of user_id => privacy :  0->public, 1->private
+     *
+     * @param $user_ids
+     * @return array
+     * @throws \Exception
+     */
+    public function fed_getBulkPrivacy($user_ids){
+        $command = new ApiCommand("users/privacy", "POST", 1);
+        $command->setData(['users' => $user_ids]);
+        try{
+            $response = $this->call($command);
+            return $response;
+        }catch (\Exception $e){
+            throw $e;
+        }
+    }
+
     public function fed_followUser(){
         /*
          * TODO:
@@ -588,12 +623,6 @@ class Client
     public function fed_getFollowings(){
         /*
          * TODO:
-         * */
-    }
-
-    public function fed_getFollowers(){
-        /*
-         * TODO
          * */
     }
 
