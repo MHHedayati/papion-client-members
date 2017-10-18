@@ -590,24 +590,6 @@ class Client
         }
     }
 
-    /**
-     * returns an associative array of user_id => privacy :  0->public, 1->private
-     *
-     * @param $user_ids
-     * @return array
-     * @throws \Exception
-     */
-    public function fed_getBulkPrivacy($user_ids){
-        $command = new ApiCommand("users/privacy", "POST", 1);
-        $command->setData(['users' => $user_ids]);
-        try{
-            $response = $this->call($command);
-            return $response;
-        }catch (\Exception $e){
-            throw $e;
-        }
-    }
-
     public function fed_followUser(){
         /*
          * TODO:
